@@ -6,26 +6,6 @@ import java.io.IOException;
 
 import static java.lang.System.out;
 
-interface Drawable {
-    void draw();
-}
-
-interface Updatable {
-    void update();
-}
-
-class snake implements Drawable, Updatable {
-
-    @Override
-    public void draw() {
-
-    }
-
-    @Override
-    public void update() {
-
-    }
-}
 
 public class Main {
 
