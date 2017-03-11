@@ -3,15 +3,18 @@ package mybase;
 import myLinkedList.LinkedList;
 
 class Snake implements Drawable, Updatable {
-    private UpdateBehavior updateBehavior;
-    private DrawBehavior drawBehavior;
-    private LinkedList<Point> bodyParts;
+    private Updatable updateBehavior;
+    private Drawable drawBehavior;
+    private LinkedList<Point> body;
     private Direction direction;
 
-    Snake(UpdateBehavior updateBehavior, DrawBehavior drawBehavior) {
-        this.updateBehavior = updateBehavior;
-        this.drawBehavior = drawBehavior;
-        bodyParts = new LinkedList<>(new Point());
+    Snake() {
+        body = new LinkedList<>(new Point(0, 0));
+        direction = Direction.Right;
+    }
+
+    public LinkedList<Point> getBody() {
+        return body;
     }
 
     @Override
@@ -25,7 +28,7 @@ class Snake implements Drawable, Updatable {
     }
 
     public void grow() {
-        bodyParts.append(bodyParts.last());
+        body.append(new Point(body.last()));
     }
 
     public Direction getDirection() {
@@ -38,6 +41,14 @@ class Snake implements Drawable, Updatable {
         } else {
             this.direction = direction;
         }
+    }
+
+    public void setUpdateBehavior(Updatable updateBehavior) {
+        this.updateBehavior = updateBehavior;
+    }
+
+    public void setDrawBehavior(Drawable drawBehavior) {
+        this.drawBehavior = drawBehavior;
     }
 }
 
