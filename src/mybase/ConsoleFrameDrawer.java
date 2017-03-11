@@ -22,7 +22,7 @@ public class ConsoleFrameDrawer {
                     if (cell == null) {
                         cell = " ";
                     }
-                    printStream.print(cell); //todo might have too much overhead
+                    printStream.print(cell);
                 } catch (PointOutOfBoundsException ignored) {
                 }
             }
