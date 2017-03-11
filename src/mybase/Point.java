@@ -15,6 +15,19 @@ public class Point {
         this.y = y;
     }
 
+    public Point(Point point) {
+        this(point.x, point.y);
+    }
+
+    public void set(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void set(Point point) {
+        this.set(point.x, point.y);
+    }
+
     @Override
     public String toString() {
         return "Point{" + "x=" + x + ", y=" + y + '}';
