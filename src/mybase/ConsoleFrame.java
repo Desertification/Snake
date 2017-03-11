@@ -5,14 +5,14 @@ package mybase;
  */
 public class ConsoleFrame {
     private Dimension dimension;
-    private String[][] frame;
+    private char[][] frame;
 
     ConsoleFrame(Dimension dimension) {
         this.dimension = dimension;
-        frame = new String[dimension.x][dimension.y];
+        frame = new char[dimension.x][dimension.y];
     }
 
-    public void setCell(Point point, String value) throws PointOutOfBoundsException {
+    public void setCell(Point point, char value) throws PointOutOfBoundsException {
         try {
             frame[point.x][point.y] = value;
         } catch (IndexOutOfBoundsException e) {
@@ -20,7 +20,7 @@ public class ConsoleFrame {
         }
     }
 
-    public String getCell(Point point) throws PointOutOfBoundsException {
+    public char getCell(Point point) throws PointOutOfBoundsException {
         try {
             return frame[point.x][point.y];
         } catch (Exception e) {

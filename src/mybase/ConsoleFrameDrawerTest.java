@@ -28,7 +28,7 @@ class ConsoleFrameDrawerTest {
     void setUp() {
         byteArrayOutputStream = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(byteArrayOutputStream);
-        consoleFrameDrawer = new ConsoleFrameDrawer(printStream);
+        consoleFrameDrawer = new ConsoleFrameDrawer(printStream, new Dimension(3, 3));
     }
 
     @Test
@@ -36,13 +36,13 @@ class ConsoleFrameDrawerTest {
         String ls = System.lineSeparator();
         String expected = "abc" + ls + " d " + ls + "  e" + ls;
 
-        ConsoleFrame frame = new ConsoleFrame(new Dimension(3, 3));
-        frame.setCell(new Point(0, 0), "a");
-        frame.setCell(new Point(1, 0), "b");
-        frame.setCell(new Point(2, 0), "c");
-        frame.setCell(new Point(1, 1), "d");
-        frame.setCell(new Point(2, 2), "e");
-        consoleFrameDrawer.drawFrame(frame);
+        ConsoleFrame frame = consoleFrameDrawer.getFrame();
+        frame.setCell(new Point(0, 0), 'a');
+        frame.setCell(new Point(1, 0), 'b');
+        frame.setCell(new Point(2, 0), 'c');
+        frame.setCell(new Point(1, 1), 'd');
+        frame.setCell(new Point(2, 2), 'e');
+        consoleFrameDrawer.drawFrame();
 
         assertTrue(expected.equals(getStreamOutput()));
 
