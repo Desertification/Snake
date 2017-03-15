@@ -10,7 +10,7 @@ class Snake implements Drawable, Updatable {
 
     Snake() {
         body = new LinkedList<>(new Point(0, 0));
-        direction = Direction.Right;
+        direction = Direction.RIGHT;
     }
 
     public LinkedList<Point> getBody() {
@@ -35,10 +35,8 @@ class Snake implements Drawable, Updatable {
         return direction;
     }
 
-    public void setDirection(Direction direction) throws IllegalDirectionChangeException {
-        if (this.direction == direction) {
-            throw new IllegalDirectionChangeException("The snake cannot do a 180 degree direction change");
-        } else {
+    public void setDirection(Direction direction) {
+        if (this.direction != direction.opposite()) {
             this.direction = direction;
         }
     }
@@ -49,26 +47,5 @@ class Snake implements Drawable, Updatable {
 
     public void setDrawBehavior(Drawable drawBehavior) {
         this.drawBehavior = drawBehavior;
-    }
-}
-
-/**
- * Signals that the requested direction change is currently not possible.
- */
-class IllegalDirectionChangeException extends Exception {
-    public IllegalDirectionChangeException() {
-        super();
-    }
-
-    public IllegalDirectionChangeException(String message) {
-        super(message);
-    }
-
-    public IllegalDirectionChangeException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public IllegalDirectionChangeException(Throwable cause) {
-        super(cause);
     }
 }
