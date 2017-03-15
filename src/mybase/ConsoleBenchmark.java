@@ -23,8 +23,8 @@ public class ConsoleBenchmark {
             long fg_start = System.currentTimeMillis();
             ConsoleFrame frame = consoleFrameDrawer.getFrame();
             Dimension frameDimension = frame.getDimension();
-            for (int y = 0; y < frameDimension.y; y++) {
-                for (int x = 0; x < frameDimension.x; x++) {
+            for (int y = 0; y < frameDimension.height; y++) {
+                for (int x = 0; x < frameDimension.width; x++) {
                     frame.setCell(new Point(x, y), chars[random.nextInt(chars.length)]);
                 }
             }

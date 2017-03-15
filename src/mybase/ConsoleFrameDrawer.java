@@ -24,8 +24,8 @@ public class ConsoleFrameDrawer {
 
     private void drawFrame(ConsoleFrame frame) {
         Dimension dimension = frame.getDimension();
-        for (int y = 0; y < dimension.y; y++) {
-            for (int x = 0; x < dimension.x; x++) {
+        for (int y = 0; y < dimension.height; y++) {
+            for (int x = 0; x < dimension.width; x++) {
                 try {
                     char cell = frame.getCell(new Point(x, y));
                     if (cell == '\u0000') {

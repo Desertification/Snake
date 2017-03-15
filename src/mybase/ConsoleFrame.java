@@ -9,7 +9,7 @@ public class ConsoleFrame {
 
     ConsoleFrame(Dimension dimension) {
         this.dimension = dimension;
-        frame = new char[dimension.x][dimension.y];
+        frame = new char[dimension.width][dimension.height];
     }
 
     public void setCell(Point point, char value) throws PointOutOfBoundsException {

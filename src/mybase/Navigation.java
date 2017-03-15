@@ -20,23 +20,23 @@ public abstract class Navigation {
     }
 
     public static boolean isOutOfBounds(Point point, Dimension bounds) {
-        if (point.x < 0 || point.x >= bounds.x) {
+        if (point.x < 0 || point.x >= bounds.width) {
             return true;
         }
-        return point.y < 0 || point.y >= bounds.y;
+        return point.y < 0 || point.y >= bounds.height;
 
     }
 
     // todo fix code duplication
     public static void warp(Point point, Dimension bounds) {
         if (point.x < 0) {
-            point.set(bounds.x - 1, point.y);
-        } else if (point.x >= bounds.x) {
+            point.set(bounds.width - 1, point.y);
+        } else if (point.x >= bounds.width) {
             point.set(0, point.y);
         }
         if (point.y < 0) {
-            point.set(point.x, bounds.y - 1);
-        } else if (point.y >= bounds.y) {
+            point.set(point.x, bounds.height - 1);
+        } else if (point.y >= bounds.height) {
             point.set(point.x, 0);
         }
     }
