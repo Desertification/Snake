@@ -3,16 +3,16 @@ package mybase;
 /**
  * Created by thoma on 11-Mar-17.
  */
-public class Navigation {
+public abstract class Navigation {
     public static Point getNextPoint(Point point, Direction direction) {
         switch (direction) {
-            case Down:
-                return new Point(point.x, point.y - 1);
-            case Up:
+            case DOWN:
                 return new Point(point.x, point.y + 1);
-            case Left:
+            case UP:
+                return new Point(point.x, point.y - 1);
+            case LEFT:
                 return new Point(point.x - 1, point.y);
-            case Right:
+            case RIGHT:
                 return new Point(point.x + 1, point.y);
             default:
                 return point;
@@ -36,7 +36,7 @@ public class Navigation {
         }
         if (point.y < 0) {
             point.set(point.x, bounds.y - 1);
-        } else if (point.y >= bounds.x) {
+        } else if (point.y >= bounds.y) {
             point.set(point.x, 0);
         }
     }
