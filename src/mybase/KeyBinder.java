@@ -23,7 +23,7 @@ public class KeyBinder implements KeyObserver {
         commands.remove(command);
     }
 
-    private void executeCommands() {
+    private synchronized void executeCommands() {
         Iterator<Command> iterator = commands.iterator();
         while (iterator.hasNext()) {
             iterator.next().execute();
