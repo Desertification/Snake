@@ -1,5 +1,11 @@
 package mybase;
 
+//todo bug, you can put the snake in reverse if fast enough
+//todo BUILDERS, the game can use some builders
+//todo food for the poor snake
+//todo collide code
+//todo hide linked list implementation in snake
+//todo MORE tests
 
 public class Main {
     public static void main(String[] args) {
@@ -8,6 +14,28 @@ public class Main {
         Snake snake = new Snake();
         Game game = new Game();
         game.setBounds(dimension);
+
+        ConsoleKeySubject consoleKeySubject = new ConsoleKeySubject();
+        Thread keySubjectThread = new Thread(consoleKeySubject, "consoleKeySubject");
+        keySubjectThread.setDaemon(true);
+
+        KeyBinder upBind = new KeyBinder(KeyBindings.up);
+        upBind.addCommand(() -> snake.setDirection(Direction.UP));
+        consoleKeySubject.registerObserver(upBind);
+
+        KeyBinder downBind = new KeyBinder(KeyBindings.down);
+        downBind.addCommand(() -> snake.setDirection(Direction.DOWN));
+        consoleKeySubject.registerObserver(downBind);
+
+        KeyBinder leftBind = new KeyBinder(KeyBindings.left);
+        leftBind.addCommand(() -> snake.setDirection(Direction.LEFT));
+        consoleKeySubject.registerObserver(leftBind);
+
+        KeyBinder rightBind = new KeyBinder(KeyBindings.right);
+        rightBind.addCommand(() -> snake.setDirection(Direction.RIGHT));
+        consoleKeySubject.registerObserver(rightBind);
+
+        keySubjectThread.start();
 
         SnakeBehavior snakeBehavior = new SnakeBehavior(game);
         snakeBehavior.setSnake(snake);
@@ -24,6 +52,7 @@ public class Main {
         snake.grow();
         snake.grow();
         snake.grow();
+
 
         while (true) {
             snake.draw();
