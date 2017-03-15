@@ -8,8 +8,8 @@ import java.io.IOException;
 /**
  * Created by thoma on 11-Mar-17.
  */
-public class ConsoleKeySubject implements Subject<Observer>, Runnable {
-    private LinkedList<Observer> observers;
+public class ConsoleKeySubject implements Subject<KeyObserver>, Runnable {
+    private LinkedList<KeyObserver> observers;
     private ConsoleScanner consoleScanner;
     private int lastKey;
 
@@ -19,18 +19,18 @@ public class ConsoleKeySubject implements Subject<Observer>, Runnable {
     }
 
     @Override
-    public void registerObserver(Observer observer) {
+    public void registerObserver(KeyObserver observer) {
         observers.append(observer);
     }
 
     @Override
-    public void removeObserver(Observer observer) {
+    public void removeObserver(KeyObserver observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        Iterator<Observer> iterator = observers.iterator();
+        Iterator<KeyObserver> iterator = observers.iterator();
         while (iterator.hasNext()) {
             iterator.next().update(lastKey);
         }
