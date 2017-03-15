@@ -1,5 +1,6 @@
 package mybase;
 
+import myLinkedList.Iterator;
 import myLinkedList.LinkedList;
 
 /**
@@ -19,31 +20,21 @@ public class SnakeBehavior implements Updatable {
     }
 
     private void move() {
-        LinkedList<Point> snakeBody = snake.getBody();
+        LinkedList<Location> snakeBody = snake.getBody();
         Direction direction = snake.getDirection();
 
-        Point head = snakeBody.first();
-        Point nextCoordinates = Navigation.getNextPoint(head, direction);
+        Location head = snakeBody.first();
+        Point nextPoint = Navigation.getNextPoint(new Point(head), direction);
 
-        int snakeLength = snakeBody.size();
-        for (int i = 0; i < snakeLength; i++) {
-            Point snakeBodyPart = snakeBody.first();
-            Point copyOfOldCoordinates = new Point(snakeBodyPart);
-            snakeBodyPart.set(nextCoordinates);
-            nextCoordinates = copyOfOldCoordinates;
-            snakeBody = snakeBody.tail();
+        Iterator<Location> iterator = snakeBody.iterator();
+        while (iterator.hasNext()) {
+            Location location = iterator.next();
+            Point copyOfOldCoordinates = new Point(location);
+            location.set(nextPoint);
+            nextPoint = copyOfOldCoordinates;
         }
-
-        warpIfNeeded();
-    }
-
-    private void warpIfNeeded() {
-        LinkedList<Point> snakeBody = snake.getBody();
-
-        Point head = snakeBody.first();
-        if (Navigation.isOutOfBounds(head, game.getBounds())) {
-            Navigation.warp(head, game.getBounds());
-        }
+        Point warpedPoint = Navigation.warp(new Point(head), game.getBounds());
+        head.set(warpedPoint);
     }
 
     public void setSnake(Snake snake) {

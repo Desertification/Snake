@@ -1,5 +1,6 @@
 package mybase;
 
+import myLinkedList.Iterator;
 import myLinkedList.LinkedList;
 
 /**
@@ -17,11 +18,13 @@ public class ConsoleSnakeDrawer implements Drawable {
     @Override
     public void draw() {
         ConsoleFrame frame = consoleFrameDrawer.getFrame();
-        LinkedList<Point> body = snake.getBody();
-        int snakeLength = body.size();
-        for (int i = 0; i < snakeLength; i++) {
-            frame.setCell(body.first(), getBodyCharacterFor(i));
-            body = body.tail();
+        LinkedList<Location> body = snake.getBody();
+
+        int i = 0;
+        Iterator<Location> iterator = body.iterator();
+        while (iterator.hasNext()) {
+            frame.setCell(new Point(iterator.next()), getBodyCharacterFor(i));
+            i++;
         }
     }
 

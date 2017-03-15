@@ -5,15 +5,15 @@ import myLinkedList.LinkedList;
 class Snake implements Drawable, Updatable {
     private Updatable updateBehavior;
     private Drawable drawBehavior;
-    private LinkedList<Point> body;
+    private LinkedList<Location> body;
     private Direction direction;
 
     Snake() {
-        body = new LinkedList<>(new Point(0, 0));
+        body = new LinkedList<>(new Location(0, 0));
         direction = Direction.RIGHT;
     }
 
-    public LinkedList<Point> getBody() {
+    public LinkedList<Location> getBody() {
         return body;
     }
 
@@ -28,7 +28,7 @@ class Snake implements Drawable, Updatable {
     }
 
     public void grow() {
-        body.append(new Point(body.last()));
+        body.append(new Location(body.last()));
     }
 
     public Direction getDirection() {
