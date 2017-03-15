@@ -6,7 +6,6 @@ import java.io.PrintStream;
  * Created by thoma on 08-Mar-17.
  */
 public class ConsoleFrameDrawer {
-
     private PrintStream printStream;
     private ConsoleFrame frame;
     private Dimension dimension;
@@ -17,29 +16,34 @@ public class ConsoleFrameDrawer {
         frame = new ConsoleFrame(dimension);
     }
 
-    public void drawFrame() {
-        drawFrame(frame);
-        frame = new ConsoleFrame(dimension);
+    public ConsoleFrame getFrame() {
+        return frame;
     }
 
-    private void drawFrame(ConsoleFrame frame) {
-        Dimension dimension = frame.getDimension();
+    public void clearFrame() {
+        frame.clear();
+    }
+
+    public void drawFrame() {
         for (int y = 0; y < dimension.height; y++) {
             for (int x = 0; x < dimension.width; x++) {
-                try {
-                    char cell = frame.getCell(new Point(x, y));
-                    if (cell == '\u0000') {
-                        cell = ' ';
-                    }
-                    printStream.print(cell);
-                } catch (PointOutOfBoundsException ignored) {
-                }
+                drawCell(frame, new Point(x, y));
             }
             printStream.println();
         }
     }
 
-    public ConsoleFrame getFrame() {
-        return frame;
+    private void drawCell(ConsoleFrame frame, Point point) {
+        char cell = frame.getCell(point);
+        cell = replaceNullWithSpace(cell);
+        printStream.print(cell);
+    }
+
+    private char replaceNullWithSpace(char cell) {
+        final char NULL_CHAR = '\u0000';
+        if (cell == NULL_CHAR) {
+            cell = ' ';
+        }
+        return cell;
     }
 }

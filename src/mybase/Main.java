@@ -59,11 +59,13 @@ public class Main {
             snake.update();
             snake.setDrawBehavior(debugConsoleSnakeDrawer);
             consoleFrameDrawer.drawFrame();
+            consoleFrameDrawer.clearFrame();
             sleep();
             snake.draw();
             snake.update();
             snake.setDrawBehavior(consoleSnakeDrawer);
             consoleFrameDrawer.drawFrame();
+            consoleFrameDrawer.clearFrame();
             sleep();
         }
     }
