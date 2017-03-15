@@ -35,6 +35,10 @@ public class Main {
         rightBind.addCommand(() -> snake.setDirection(Direction.RIGHT));
         consoleKeySubject.registerObserver(rightBind);
 
+        KeyBinder escBind = new KeyBinder(KeyBindings.esc);
+        escBind.addCommand(() -> System.exit(0));
+        consoleKeySubject.registerObserver(escBind);
+
         keySubjectThread.start();
 
         SnakeBehavior snakeBehavior = new SnakeBehavior(game);
