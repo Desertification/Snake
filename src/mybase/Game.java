@@ -6,12 +6,15 @@ package mybase;
 public class Game {
     private Dimension bounds;
 
-
     public Dimension getBounds() {
         return bounds;
     }
 
     public void setBounds(Dimension bounds) {
         this.bounds = bounds;
+    }
+
+    public void exit() {
+        System.exit(0);
     }
 }
