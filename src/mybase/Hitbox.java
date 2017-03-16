@@ -21,12 +21,20 @@ public class Hitbox {
         return location1.equals(location2);
     }
 
+    protected boolean ownHitbox(Hitbox hitbox) {
+        return this == hitbox;
+    }
+
     public boolean isCollidingWith(Hitbox hitbox) {
+        return !ownHitbox(hitbox) && collidingWithAnyPart(hitbox);
+    }
+
+    private boolean collidingWithAnyPart(Hitbox hitbox) {
         Iterator<Location> thisIterator = iterator();
         Iterator<Location> theirIterator = hitbox.iterator();
         while (thisIterator.hasNext()) {
+            Location thisLocation = thisIterator.next();
             while (theirIterator.hasNext()) {
-                Location thisLocation = thisIterator.next();
                 Location theirLocation = theirIterator.next();
                 if (overlapping(thisLocation, theirLocation)) {
                     return true;
