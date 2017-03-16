@@ -13,8 +13,15 @@ public class SnakeHitbox extends Hitbox {
 
     @Override
     public boolean isCollidingWith(Hitbox hitbox) {
-        Location head = iterator().next(); // todo can be null
+        return headCollidingWithAnyPart(hitbox);
+    }
+
+    private boolean headCollidingWithAnyPart(Hitbox hitbox) {
+        Location head = iterator().next();
         Iterator<Location> theirIterator = hitbox.iterator();
+        if (ownHitbox(hitbox)) {
+            skipTheirHead(theirIterator);
+        }
         while (theirIterator.hasNext()) {
             Location theirLocation = theirIterator.next();
             if (overlapping(head, theirLocation)) {
@@ -22,5 +29,9 @@ public class SnakeHitbox extends Hitbox {
             }
         }
         return false;
+    }
+
+    private void skipTheirHead(Iterator<Location> theirIterator) {
+        theirIterator.next();
     }
 }
