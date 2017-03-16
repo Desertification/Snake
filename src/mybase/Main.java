@@ -49,9 +49,16 @@ public class Main {
         consoleSnakeDrawer.setSnake(snake);
         ConsoleSnakeDrawer debugConsoleSnakeDrawer = new DebugConsoleSnakeDrawer(consoleFrameDrawer);
         debugConsoleSnakeDrawer.setSnake(snake);
-
         snake.setDrawBehavior(consoleSnakeDrawer);
 
+        CollideBehavior snakeCollideBehavior = new SnakeCollideBehavior(snake, game);
+        snake.setCollideBehavior(snakeCollideBehavior);
+
+
+        snake.grow();
+        snake.grow();
+        snake.grow();
+        snake.grow();
         snake.grow();
         snake.grow();
         snake.grow();
@@ -59,15 +66,24 @@ public class Main {
 
 
         while (true) {
-            snake.draw();
-            snake.update();
             snake.setDrawBehavior(debugConsoleSnakeDrawer);
+            snake.update();
+            Hitbox hitbox = snake.getHitbox();
+            if (hitbox.isCollidingWith(hitbox)) {
+                snake.collideWith(snake);
+            }
+            snake.draw();
             consoleFrameDrawer.drawFrame();
             consoleFrameDrawer.clearFrame();
             sleep();
-            snake.draw();
-            snake.update();
+
             snake.setDrawBehavior(consoleSnakeDrawer);
+            snake.update();
+            hitbox = snake.getHitbox();
+            if (hitbox.isCollidingWith(hitbox)) {
+                snake.collideWith(snake);
+            }
+            snake.draw();
             consoleFrameDrawer.drawFrame();
             consoleFrameDrawer.clearFrame();
             sleep();
