@@ -3,7 +3,10 @@ package mybase;
 /**
  * Created by thoma on 11-Mar-17.
  */
-public abstract class Navigation {
+public final class Navigation {
+    private Navigation() {
+    }
+
     public static Point getNextPoint(Point point, Direction direction) {
         switch (direction) {
             case DOWN:
