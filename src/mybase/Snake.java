@@ -2,72 +2,26 @@ package mybase;
 
 import myLinkedList.LinkedList;
 
-class Snake implements Drawable, Updatable, Collidable {
-    private Updatable updateBehavior;
-    private Drawable drawBehavior;
-    private LinkedList<Location> body;
-    private Direction direction;
-    private CollideBehavior collideBehavior;
-    private Hitbox hitbox;
+public class Snake extends Entity {
 
     Snake() {
-        body = new LinkedList<>(new Location(0, 0));
-        direction = Direction.RIGHT;
-        hitbox = new SnakeHitbox(body);
+        super(Direction.RIGHT, new Point(0, 0), new SnakeHitbox());
     }
 
-    public LinkedList<Location> getBody() {
-        return body;
-    }
-
-    @Override
-    public void draw() {
-        drawBehavior.draw();
-    }
-
-    @Override
-    public void update() {
-        updateBehavior.update();
+    public Snake(Direction direction, Point location) {
+        super(direction, location, new SnakeHitbox());
     }
 
     public void grow() {
+        LinkedList<Location> body = getBody();
         body.append(new Location(body.last()));
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
-
     public void setDirection(Direction direction) {
-        if (this.direction != direction.opposite()) {
-            this.direction = direction;
+        Direction currentDirection = getDirection();
+        if (currentDirection != direction.opposite()) {
+            super.setDirection(direction);
         }
     }
 
-    public void setUpdateBehavior(Updatable updateBehavior) {
-        this.updateBehavior = updateBehavior;
-    }
-
-    public void setDrawBehavior(Drawable drawBehavior) {
-        this.drawBehavior = drawBehavior;
-    }
-
-    public void setCollideBehavior(CollideBehavior collideBehavior) {
-        this.collideBehavior = collideBehavior;
-    }
-
-    @Override
-    public void collideWith(Collidable other) {
-        collideBehavior.collideWith(other);
-    }
-
-    @Override
-    public void collideWith(Snake snake) {
-        collideBehavior.collideWith(snake);
-    }
-
-    @Override
-    public Hitbox getHitbox() {
-        return hitbox;
-    }
 }

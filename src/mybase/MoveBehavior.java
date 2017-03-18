@@ -6,22 +6,17 @@ import myLinkedList.LinkedList;
 /**
  * Created by thoma on 11-Mar-17.
  */
-public class SnakeBehavior implements Updatable {
-    private Snake snake;
+public class MoveBehavior implements Movable {
+    private Entity entity;
     private Game game;
 
-    public SnakeBehavior(Game game) {
+    public MoveBehavior(Game game) {
         this.game = game;
     }
 
-    @Override
-    public void update() {
-        move();
-    }
-
-    private void move() {
-        LinkedList<Location> snakeBody = snake.getBody();
-        Direction direction = snake.getDirection();
+    public void move() {
+        LinkedList<Location> snakeBody = entity.getBody();
+        Direction direction = entity.getDirection();
 
         Location head = snakeBody.first();
         Point nextPoint = Navigation.getNextPoint(new Point(head), direction);
@@ -37,7 +32,7 @@ public class SnakeBehavior implements Updatable {
         head.set(warpedPoint);
     }
 
-    public void setSnake(Snake snake) {
-        this.snake = snake;
+    public void setEntity(Entity entity) {
+        this.entity = entity;
     }
 }

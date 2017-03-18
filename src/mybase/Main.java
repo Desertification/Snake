@@ -41,9 +41,9 @@ public class Main {
 
         keySubjectThread.start();
 
-        SnakeBehavior snakeBehavior = new SnakeBehavior(game);
-        snakeBehavior.setSnake(snake);
-        snake.setUpdateBehavior(snakeBehavior);
+        MoveBehavior moveBehavior = new MoveBehavior(game);
+        moveBehavior.setEntity(snake);
+        snake.setMoveBehavior(moveBehavior);
 
         ConsoleSnakeDrawer consoleSnakeDrawer = new ConsoleSnakeDrawer(consoleFrameDrawer);
         consoleSnakeDrawer.setSnake(snake);
@@ -67,7 +67,7 @@ public class Main {
 
         while (true) {
             snake.setDrawBehavior(debugConsoleSnakeDrawer);
-            snake.update();
+            snake.move();
             Hitbox hitbox = snake.getHitbox();
             if (hitbox.isCollidingWith(hitbox)) {
                 snake.collideWith(snake);
@@ -78,7 +78,7 @@ public class Main {
             sleep();
 
             snake.setDrawBehavior(consoleSnakeDrawer);
-            snake.update();
+            snake.move();
             hitbox = snake.getHitbox();
             if (hitbox.isCollidingWith(hitbox)) {
                 snake.collideWith(snake);
