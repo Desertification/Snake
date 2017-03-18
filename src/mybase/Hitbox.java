@@ -13,6 +13,13 @@ public class Hitbox {
         this.body = body;
     }
 
+    public Hitbox() {
+    }
+
+    public void setBody(LinkedList<Location> body) {
+        this.body = body;
+    }
+
     public Iterator<Location> iterator() {
         return body.iterator();
     }

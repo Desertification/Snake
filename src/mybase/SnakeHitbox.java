@@ -11,6 +11,9 @@ public class SnakeHitbox extends Hitbox {
         super(body);
     }
 
+    public SnakeHitbox() {
+    }
+
     @Override
     public boolean isCollidingWith(Hitbox hitbox) {
         return headCollidingWithAnyPart(hitbox);
