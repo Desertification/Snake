@@ -7,11 +7,11 @@ import myLinkedList.LinkedList;
  * Created by thoma on 15-Mar-17.
  */
 public class KeyBinder implements KeyObserver {
-    private final int key;
+    private final Integer[] keys;
     private LinkedList<Command> commands;
 
-    public KeyBinder(int key) {
-        this.key = key;
+    public KeyBinder(Integer... key) {
+        this.keys = key;
         commands = new LinkedList<>();
     }
 
@@ -32,7 +32,7 @@ public class KeyBinder implements KeyObserver {
 
     @Override
     public void update(Integer update) {
-        if (update == key) {
+        if (ArrayUtils.contains(keys, update)) {
             executeCommands();
         }
     }
