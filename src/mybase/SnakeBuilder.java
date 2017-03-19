@@ -24,9 +24,6 @@ public class SnakeBuilder extends EntityBuilder {
         ConsoleSnakeDrawer consoleSnakeDrawer = new ConsoleSnakeDrawer(snake, game.getFrameDrawer());
         snake.setDrawBehavior(consoleSnakeDrawer);
 
-        snake.grow();
-        snake.grow();
-
         return snake;
     }
 
