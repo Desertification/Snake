@@ -3,6 +3,8 @@ package mybase;
 import myLinkedList.Iterator;
 import myLinkedList.LinkedList;
 
+import java.util.Random;
+
 /**
  * Created by thoma on 11-Mar-17.
  */
@@ -14,10 +16,14 @@ public class Game implements Runnable {
     private EntityFactory entityFactory;
     private int targetDeltaTime = 100;
     private ConsoleKeySubject consoleKeySubject;
+    private Random random;
+    private LinkedList<Entity> deleteLater;
 
     public Game() {
+        random = new Random();
         entities = new LinkedList<>();
         players = new LinkedList<>();
+        deleteLater = new LinkedList<>();
         bounds = new Dimension(30, 15);
         frameDrawer = new ConsoleFrameDrawer(System.out, bounds);
         entityFactory = new EntityFactory(this);
@@ -48,6 +54,14 @@ public class Game implements Runnable {
         // todo actual loading
     }
 
+    public Entity spawnEntity(EntityType entity) {
+        return spawnEntity(entity, getRandomPoint());
+    }
+
+    public Entity spawnEntity(EntityType entity, Point location) {
+        return spawnEntity(entity, location, Direction.RIGHT);
+    }
+
     public Entity spawnEntity(EntityType entity, Point location, Direction direction) {
         Entity createdEntity = entityFactory.create(entity, location, direction);
         entities.append(createdEntity);
@@ -56,6 +70,7 @@ public class Game implements Runnable {
 
     public void spawnPlayer(EntityType entity, Point location, Direction direction) {
         Entity createdEntity = spawnEntity(entity, location, direction);
+        players.append(createdEntity);
 
         // todo keybinding manager
         KeyBinder upBind = new KeyBinder(KeyBindings.up);
@@ -80,17 +95,6 @@ public class Game implements Runnable {
 
     }
 
-    protected boolean isEntityAPlayer(Entity entity) {
-        Iterator<Entity> iterator = players.iterator();
-        while (iterator.hasNext()) {
-            Entity next = iterator.next();
-            if (next == entity) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     protected boolean isGameOver() {
         return players.isEmpty();
     }
@@ -101,6 +105,29 @@ public class Game implements Runnable {
             //todo undo keybinding
         }
         entities.remove(entity);
+    }
+
+    public void deleteEntityLater(Entity entity) {
+        deleteLater.append(entity);
+    }
+
+    private void deleteNow() {
+        Iterator<Entity> iterator = deleteLater.iterator();
+        while (iterator.hasNext()) {
+            deleteEntity(iterator.next());
+        }
+        deleteLater = new LinkedList<>();
+    }
+
+    protected boolean isEntityAPlayer(Entity entity) {
+        Iterator<Entity> iterator = players.iterator();
+        while (iterator.hasNext()) {
+            Entity next = iterator.next();
+            if (next == entity) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void handleCollision(Entity entity) {
@@ -115,6 +142,12 @@ public class Game implements Runnable {
         }
     }
 
+    public Point getRandomPoint() {
+        int x = random.nextInt(bounds.width);
+        int y = random.nextInt(bounds.height);
+        return new Point(x, y);
+    }
+
     public void exit() {
         System.exit(0);
     }
@@ -123,7 +156,6 @@ public class Game implements Runnable {
     public void run() { // todo needs refactoring
         while (true) {
             long begin = System.nanoTime();
-
             Iterator<Entity> iterator = entities.iterator();
             while (iterator.hasNext()) {
                 Entity entity = iterator.next();
@@ -131,9 +163,13 @@ public class Game implements Runnable {
                 handleCollision(entity);
                 entity.draw();
             }
-            // todo is game over
+            deleteNow();
             frameDrawer.drawFrame();
             frameDrawer.clearFrame();
+
+            if (isGameOver()) {
+                break;
+            }
 
             long delta = targetDeltaTime - ((System.nanoTime() - begin) / 1000000);
             try {
