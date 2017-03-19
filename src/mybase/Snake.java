@@ -24,4 +24,9 @@ public class Snake extends Entity {
         }
     }
 
+    @Override
+    public void collideWith(CollisionBehavior collisionBehavior) {
+        collisionBehavior.collideWith(this);
+    }
+
 }

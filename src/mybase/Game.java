@@ -16,6 +16,7 @@ public class Game implements Runnable {
 
     public Game() {
         entities = new LinkedList<>();
+        players = new LinkedList<>();
         bounds = new Dimension(30, 15);
         frameDrawer = new ConsoleFrameDrawer(System.out, bounds);
         entityCreator = new EntityCreator(this);
@@ -37,6 +38,7 @@ public class Game implements Runnable {
         // todo implement level object (matrix of entitytypes?)
         bounds = new Dimension(30, 15); // todo get from level
         entities = new LinkedList<>();
+        players = new LinkedList<>();
         frameDrawer = new ConsoleFrameDrawer(System.out, bounds);
         // todo actual loading
     }
@@ -80,9 +82,7 @@ public class Game implements Runnable {
             Entity next = iterator.next();
             boolean collidingWith = entityHitbox.isCollidingWith(next.getHitbox());
             if (collidingWith) {
-                entity.collideWith(next); // todo this is not going to work as expected :(
-                //see http://stackoverflow.com/questions/36722057/polymorphism-doesnt-work-in-method-arguments-in-java
-                // FIX WIP src/experimental/VisitorDemo.java
+                next.collideWith(entity.getCollisionBehavior());
             }
         }
     }

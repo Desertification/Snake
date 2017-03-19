@@ -51,8 +51,8 @@ public class Main {
         debugConsoleSnakeDrawer.setSnake(snake);
         snake.setDrawBehavior(consoleSnakeDrawer);
 
-        CollideBehavior snakeCollideBehavior = new SnakeCollideBehavior(snake, game);
-        snake.setCollideBehavior(snakeCollideBehavior);
+        CollisionBehavior snakeCollisionBehavior = new SnakeCollisionBehavior(snake, game);
+        snake.setCollisionBehavior(snakeCollisionBehavior);
 
 
         snake.grow();
@@ -70,7 +70,7 @@ public class Main {
             snake.move();
             Hitbox hitbox = snake.getHitbox();
             if (hitbox.isCollidingWith(hitbox)) {
-                snake.collideWith(snake);
+                snake.collideWith(snake.getCollisionBehavior());
             }
             snake.draw();
             consoleFrameDrawer.drawFrame();
@@ -81,7 +81,7 @@ public class Main {
             snake.move();
             hitbox = snake.getHitbox();
             if (hitbox.isCollidingWith(hitbox)) {
-                snake.collideWith(snake);
+                snake.collideWith(snake.getCollisionBehavior());
             }
             snake.draw();
             consoleFrameDrawer.drawFrame();

@@ -5,13 +5,13 @@ import myLinkedList.LinkedList;
 /**
  * Created by thoma on 18-Mar-17.
  */
-public class Entity implements Drawable, Movable, Collidable {
+public abstract class Entity implements Drawable, Movable, Collidable {
     private LinkedList<Location> body;
     private Direction direction;
     private Hitbox hitbox;
     private Movable moveBehavior;
     private Drawable drawBehavior;
-    private CollideBehavior collideBehavior;
+    private CollisionBehavior collisionBehavior;
 
     public Entity() {
         this(Direction.RIGHT, new Point(0, 0), new Hitbox());
@@ -63,19 +63,17 @@ public class Entity implements Drawable, Movable, Collidable {
         this.drawBehavior = drawBehavior;
     }
 
-    public void setCollideBehavior(CollideBehavior collideBehavior) {
-        this.collideBehavior = collideBehavior;
+    @Override
+    public CollisionBehavior getCollisionBehavior() {
+        return collisionBehavior;
+    }
+
+    public void setCollisionBehavior(CollisionBehavior collisionBehavior) {
+        this.collisionBehavior = collisionBehavior;
     }
 
     @Override
-    public void collideWith(Collidable other) {
-        collideBehavior.collideWith(other);
-    }
-
-    @Override
-    public void collideWith(Snake snake) {
-        collideBehavior.collideWith(snake);
-    }
+    public abstract void collideWith(CollisionBehavior collisionBehavior);
 
     @Override
     public Hitbox getHitbox() {
