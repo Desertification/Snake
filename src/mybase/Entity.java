@@ -28,6 +28,11 @@ public class Entity implements Drawable, Movable, Collidable {
         this.hitbox = hitbox;
     }
 
+    public void setLocation(Point location) {
+        Location currentLocation = body.first();
+        currentLocation.set(location);
+    }
+
     public LinkedList<Location> getBody() {
         return body;
     }
