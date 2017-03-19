@@ -2,6 +2,8 @@ package mybase;
 
 /**
  * Created by thoma on 19-Mar-17.
+ *
+ * Contains the hopes and dreams of Donald John Trump
  */
 public class WallBuilder extends EntityBuilder {
     public WallBuilder(Game game) {

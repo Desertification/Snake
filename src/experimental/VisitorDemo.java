@@ -15,11 +15,20 @@ package experimental;
 
 
 interface Collidable {
+    /**
+     * @return the collision behavior of the Collidable object
+     */
     CollisionBehavior getCollisionBehavior();
 
+    /**
+     * @param collisionBehavior the collision behavior of the target, It knows what type of entity it works for
+     */
     void collideWith(CollisionBehavior collisionBehavior);
 }
 
+/**
+ * contains the possible collision types
+ */
 interface CollisionBehavior {
     void collideWith(Entity entity);
 

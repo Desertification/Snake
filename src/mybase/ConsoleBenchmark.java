@@ -4,10 +4,18 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * A debugging class to measure the performance of the rendering logic in the console
+ */
 public class ConsoleBenchmark {
     private static char[] chars = {'\u2588', '\u00DE', '\u25a0', '\u2591', '\u2592', '\u2593'};
     private static Random random = new Random();
 
+    /**
+     * run the benchmark
+     *
+     * @param args not used
+     */
     public static void main(String[] args) {
         Timer timer = new Timer(false);
         timer.scheduleAtFixedRate(new FrameTask(), 0, 40);
