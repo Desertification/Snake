@@ -4,8 +4,8 @@ package mybase;
  * Created by thoma on 11-Mar-17.
  */
 public class DebugConsoleSnakeDrawer extends ConsoleSnakeDrawer {
-    public DebugConsoleSnakeDrawer(ConsoleFrameDrawer consoleFrameDrawer) {
-        super(consoleFrameDrawer);
+    public DebugConsoleSnakeDrawer(Snake snake, ConsoleFrameDrawer consoleFrameDrawer) {
+        super(snake, consoleFrameDrawer);
     }
 
     @Override

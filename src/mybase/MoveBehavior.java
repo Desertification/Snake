@@ -10,7 +10,8 @@ public class MoveBehavior implements Movable {
     private Entity entity;
     private Game game;
 
-    public MoveBehavior(Game game) {
+    public MoveBehavior(Entity entity, Game game) {
+        this.entity = entity;
         this.game = game;
     }
 

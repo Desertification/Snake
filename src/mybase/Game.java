@@ -11,15 +11,20 @@ public class Game implements Runnable {
     private LinkedList<Entity> entities;
     private LinkedList<Entity> players;
     private ConsoleFrameDrawer frameDrawer;
-    private EntityCreator entityCreator;
+    private EntityFactory entityFactory;
     private int targetDeltaTime = 100;
+    private ConsoleKeySubject consoleKeySubject;
 
     public Game() {
         entities = new LinkedList<>();
         players = new LinkedList<>();
         bounds = new Dimension(30, 15);
         frameDrawer = new ConsoleFrameDrawer(System.out, bounds);
-        entityCreator = new EntityCreator(this);
+        entityFactory = new EntityFactory(this);
+        consoleKeySubject = new ConsoleKeySubject();
+        Thread keySubjectThread = new Thread(consoleKeySubject, "consoleKeySubject");
+        keySubjectThread.setDaemon(true);
+        keySubjectThread.start();
     }
 
     public ConsoleFrameDrawer getFrameDrawer() {
@@ -43,13 +48,36 @@ public class Game implements Runnable {
         // todo actual loading
     }
 
-    public void spawnEntity(EntityType entity, Point location, Direction direction) {
-        //todo create with entity creator
+    public Entity spawnEntity(EntityType entity, Point location, Direction direction) {
+        Entity createdEntity = entityFactory.create(entity, location, direction);
+        entities.append(createdEntity);
+        return createdEntity;
     }
 
     public void spawnPlayer(EntityType entity, Point location, Direction direction) {
-        spawnEntity(entity, location, direction);
-        // todo keybind
+        Entity createdEntity = spawnEntity(entity, location, direction);
+
+        // todo keybinding manager
+        KeyBinder upBind = new KeyBinder(KeyBindings.up);
+        upBind.addCommand(() -> createdEntity.setDirection(Direction.UP));
+        consoleKeySubject.registerObserver(upBind);
+
+        KeyBinder downBind = new KeyBinder(KeyBindings.down);
+        downBind.addCommand(() -> createdEntity.setDirection(Direction.DOWN));
+        consoleKeySubject.registerObserver(downBind);
+
+        KeyBinder leftBind = new KeyBinder(KeyBindings.left);
+        leftBind.addCommand(() -> createdEntity.setDirection(Direction.LEFT));
+        consoleKeySubject.registerObserver(leftBind);
+
+        KeyBinder rightBind = new KeyBinder(KeyBindings.right);
+        rightBind.addCommand(() -> createdEntity.setDirection(Direction.RIGHT));
+        consoleKeySubject.registerObserver(rightBind);
+
+        KeyBinder escBind = new KeyBinder(KeyBindings.esc);
+        escBind.addCommand(() -> System.exit(0));
+        consoleKeySubject.registerObserver(escBind);
+
     }
 
     protected boolean isEntityAPlayer(Entity entity) {
@@ -107,7 +135,7 @@ public class Game implements Runnable {
             frameDrawer.drawFrame();
             frameDrawer.clearFrame();
 
-            long delta = (System.nanoTime() - begin) / 1000000;
+            long delta = targetDeltaTime - ((System.nanoTime() - begin) / 1000000);
             try {
                 Thread.sleep(Math.max(0, delta));
             } catch (InterruptedException e) {

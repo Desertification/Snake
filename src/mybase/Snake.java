@@ -5,11 +5,11 @@ import myLinkedList.LinkedList;
 public class Snake extends Entity {
 
     Snake() {
-        super(Direction.RIGHT, new Point(0, 0), new SnakeHitbox());
+        super(Direction.RIGHT, new Point(0, 0), new HeadFirstHitbox());
     }
 
     public Snake(Direction direction, Point location) {
-        super(direction, location, new SnakeHitbox());
+        super(direction, location, new HeadFirstHitbox());
     }
 
     public void grow() {

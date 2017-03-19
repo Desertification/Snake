@@ -1,17 +1,12 @@
 package mybase;
 
 import myLinkedList.Iterator;
-import myLinkedList.LinkedList;
 
 /**
  * Created by thoma on 16-Mar-17.
  */
-public class SnakeHitbox extends Hitbox {
-    public SnakeHitbox(LinkedList<Location> body) {
-        super(body);
-    }
-
-    public SnakeHitbox() {
+public class HeadFirstHitbox extends Hitbox {
+    public HeadFirstHitbox() {
     }
 
     @Override

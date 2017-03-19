@@ -11,8 +11,9 @@ public class ConsoleSnakeDrawer implements Drawable {
     private ConsoleFrameDrawer consoleFrameDrawer;
     private char bodyCharacter = '\u2592';
 
-    public ConsoleSnakeDrawer(ConsoleFrameDrawer consoleFrameDrawer) {
+    public ConsoleSnakeDrawer(Snake snake, ConsoleFrameDrawer consoleFrameDrawer) {
         this.consoleFrameDrawer = consoleFrameDrawer;
+        this.snake = snake;
     }
 
     @Override
