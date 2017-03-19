@@ -14,16 +14,9 @@ public abstract class Entity implements Drawable, Movable, Collidable {
     private CollisionBehavior collisionBehavior;
 
     public Entity() {
-        this(Direction.RIGHT, new Point(0, 0), new Hitbox());
-    }
-
-    public Entity(Direction direction, Point location) {
-        this(direction, location, new Hitbox());
-    }
-
-    protected Entity(Direction direction, Point location, Hitbox hitbox) {
         this.direction = direction;
-        body = new LinkedList<>(new Location(location));
+        body = new LinkedList<>(new Location(0, 0));
+        hitbox = new Hitbox();
         hitbox.setBody(body);
         this.hitbox = hitbox;
     }
@@ -78,5 +71,10 @@ public abstract class Entity implements Drawable, Movable, Collidable {
     @Override
     public Hitbox getHitbox() {
         return hitbox;
+    }
+
+    @Override
+    public void setHitbox(Hitbox hitbox) {
+        this.hitbox = hitbox;
     }
 }

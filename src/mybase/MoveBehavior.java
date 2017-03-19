@@ -16,13 +16,13 @@ public class MoveBehavior implements Movable {
     }
 
     public void move() {
-        LinkedList<Location> snakeBody = entity.getBody();
+        LinkedList<Location> body = entity.getBody();
         Direction direction = entity.getDirection();
 
-        Location head = snakeBody.first();
+        Location head = body.first();
         Point nextPoint = Navigation.getNextPoint(new Point(head), direction);
 
-        Iterator<Location> iterator = snakeBody.iterator();
+        Iterator<Location> iterator = body.iterator();
         while (iterator.hasNext()) {
             Location location = iterator.next();
             Point copyOfOldCoordinates = new Point(location);

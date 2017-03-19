@@ -7,4 +7,8 @@ public interface CollisionBehavior {
     void collideWith(Entity entity);
 
     void collideWith(Snake snake);
+
+    void collideWith(Food food);
+
+    void collideWith(Wall wall);
 }

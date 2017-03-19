@@ -8,4 +8,6 @@ public interface Collidable {
 
     void collideWith(CollisionBehavior collisionBehavior);
     Hitbox getHitbox();
+
+    void setHitbox(Hitbox hitbox);
 }

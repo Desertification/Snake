@@ -14,13 +14,13 @@ public class EntityFactory {
         Entity entity;
         switch (entityType) {
             case FOOD:
-                entity = new Snake(); // todo
+                entity = new FoodBuilder(game).build();
                 break;
             case SNAKE:
                 entity = new SnakeBuilder(game).build();
                 break;
             case WALL:
-                entity = new Snake(); // todo
+                entity = new WallBuilder(game).build();
                 break;
             default:
                 throw new RuntimeException("Unknown entity type");
