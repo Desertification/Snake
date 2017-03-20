@@ -4,6 +4,8 @@ import myLinkedList.LinkedList;
 
 /**
  * Created by thoma on 18-Mar-17.
+ * An abstract game entity
+ * contains code shared by snakes,walls,food,...
  */
 public abstract class Entity implements Drawable, Movable, Collidable {
     private LinkedList<Location> body;
@@ -21,11 +23,17 @@ public abstract class Entity implements Drawable, Movable, Collidable {
         this.hitbox = hitbox;
     }
 
+    /**
+     * @param location new location of the entity on the map
+     */
     public void setLocation(Point location) {
         Location currentLocation = body.first();
         currentLocation.set(location);
     }
 
+    /**
+     * @return the linked list of locations of the body
+     */
     public LinkedList<Location> getBody() {
         return body;
     }
@@ -40,18 +48,30 @@ public abstract class Entity implements Drawable, Movable, Collidable {
         moveBehavior.move();
     }
 
+    /**
+     * @return the facing direction of the entity
+     */
     public Direction getDirection() {
         return direction;
     }
 
+    /**
+     * @param direction the facing direction of the entity
+     */
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
+    /**
+     * @param moveBehavior object containing the logic on how the enmity should move
+     */
     public void setMoveBehavior(Movable moveBehavior) {
         this.moveBehavior = moveBehavior;
     }
 
+    /**
+     * @param drawBehavior object containing the logic on how the entity should be drawn
+     */
     public void setDrawBehavior(Drawable drawBehavior) {
         this.drawBehavior = drawBehavior;
     }
@@ -61,6 +81,9 @@ public abstract class Entity implements Drawable, Movable, Collidable {
         return collisionBehavior;
     }
 
+    /**
+     * @param collisionBehavior object containing the logic on how the entity should react when colliding with others
+     */
     public void setCollisionBehavior(CollisionBehavior collisionBehavior) {
         this.collisionBehavior = collisionBehavior;
     }
